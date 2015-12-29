@@ -1,0 +1,31 @@
+﻿<Window x:Class="SA_Week4_Sudoku.View.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:clr="clr-namespace:SA_Week4_Sudoku.View"
+    Title="Sudolu" Width="800" Height="600" >
+    
+    <Window.Resources>
+        <DataTemplate x:Key ="BoardSizeTemplate">
+            <StackPanel Orientation ="Horizontal" FlowDirection ="LeftToRight">
+                <TextBlock Text ="{Binding}"/>
+                <TextBlock Text ="x"/>
+                <TextBlock Text ="{Binding}"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    
+    <DockPanel>
+        <StackPanel DockPanel.Dock ="Left">
+            <Expander IsExpanded ="True" Header="Main Menu">
+                <Border Margin ="5" Padding ="10" Background ="#77FFFFFF" BorderBrush ="DimGray" BorderThickness ="1">
+                    <StackPanel>
+                        <Button Click ="NewGameClicked">New Game</Button>
+                        <Button Click ="QuitClicked">Quit</Button>
+                    </StackPanel>
+                </Border>
+            </Expander>
+           </StackPanel>
+
+        <clr:SudokuBoard x:Name="Board"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"   Margin="5"/>
+    </DockPanel>
+</Window>

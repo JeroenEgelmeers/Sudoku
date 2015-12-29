@@ -1,0 +1,13 @@
+D:\Users\Bart\Documents\School\SA\SudokuBasis\bin\Debug\SudokuBasis.dll
+D:\Users\Bart\Documents\School\SA\SudokuBasis\bin\Debug\SudokuBasis.pdb
+D:\Users\Bart\Documents\School\SA\SudokuBasis\obj\Debug\SudokuBasis.csprojResolveAssemblyReference.cache
+D:\Users\Bart\Documents\School\SA\SudokuBasis\obj\Debug\Interop.Sudoku.dll
+D:\Users\Bart\Documents\School\SA\SudokuBasis\obj\Debug\SudokuBasis.csproj.ResolveComReference.cache
+D:\Users\Bart\Documents\School\SA\SudokuBasis\obj\Debug\SudokuBasis.dll
+D:\Users\Bart\Documents\School\SA\SudokuBasis\obj\Debug\SudokuBasis.pdb
+C:\Users\jeroe\Documents\Visual Studio 2015\Projects\MOD4_Sudoku\SudokuBasis\bin\Debug\SudokuBasis.dll
+C:\Users\jeroe\Documents\Visual Studio 2015\Projects\MOD4_Sudoku\SudokuBasis\bin\Debug\SudokuBasis.pdb
+C:\Users\jeroe\Documents\Visual Studio 2015\Projects\MOD4_Sudoku\SudokuBasis\obj\Debug\Interop.Sudoku.dll
+C:\Users\jeroe\Documents\Visual Studio 2015\Projects\MOD4_Sudoku\SudokuBasis\obj\Debug\SudokuBasis.csproj.ResolveComReference.cache
+C:\Users\jeroe\Documents\Visual Studio 2015\Projects\MOD4_Sudoku\SudokuBasis\obj\Debug\SudokuBasis.dll
+C:\Users\jeroe\Documents\Visual Studio 2015\Projects\MOD4_Sudoku\SudokuBasis\obj\Debug\SudokuBasis.pdb
