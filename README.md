@@ -1,6 +1,10 @@
 # Sudoku
 
 # How to run
+First get the Sudoku.dll and Sudoku.tlb from https://drive.google.com/folderview?id=0B1TMiRaT2NH6RDJpQ2JTUkh4bzg&usp=sharing
+Put them in the folder: Sa-Week4-Sudoku
+
+Then:
 - Edit the register.bat (notepad)
 - Define the path to the folder on your computer
 - Run as admin
