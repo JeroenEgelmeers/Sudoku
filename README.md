@@ -20,3 +20,4 @@ You're now ready to run the application.
 
 # TODO
 - ASP.NET APPLICATION
+- Eis: Read & Write moet nog!
