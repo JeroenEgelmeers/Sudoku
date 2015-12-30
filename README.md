@@ -1,7 +1,8 @@
 # Sudoku
 
 # How to run
-First get the Sudoku.dll and Sudoku.tlb from https://drive.google.com/folderview?id=0B1TMiRaT2NH6RDJpQ2JTUkh4bzg&usp=sharing
+First check if you've got the Sudoku.dll and Sudoku.tld in the folder: Sa-Week4-Sudoku. It should be there but could go wrong because of a early commit. If you do not have it in your folder:
+Get the Sudoku.dll and Sudoku.tlb from https://drive.google.com/folderview?id=0B1TMiRaT2NH6RDJpQ2JTUkh4bzg&usp=sharing
 Put them in the folder: Sa-Week4-Sudoku
 
 Then:
