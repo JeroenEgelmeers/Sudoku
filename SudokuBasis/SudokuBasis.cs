@@ -74,5 +74,12 @@ namespace SudokuBasis
 
             return true;
         }
+
+
+        public void isValid(out int valid)
+        {
+            sudoku.isValid(out valid);
+        }
+
     }
 }
