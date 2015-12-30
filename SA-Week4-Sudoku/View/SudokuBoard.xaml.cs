@@ -25,7 +25,6 @@ namespace SA_Week4_Sudoku.View
         {
             InitializeComponent();
             this.GameBoard = new Board(9);
-            this.GameBoard.GenerateGame(18);
         }
     }
 }

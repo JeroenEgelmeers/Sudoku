@@ -28,7 +28,7 @@ namespace SA_Week4_Sudoku.View
         void NewGameClicked(object sender, RoutedEventArgs e)
         {
             Board.GameBoard = new Board(9);
-            Board.GameBoard.GenerateGame(79);
+            Board.GameBoard.Solve();
         }
 
 

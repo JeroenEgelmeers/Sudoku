@@ -121,6 +121,9 @@ namespace SA_Week4_Sudoku.View
 
         void c_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (Board.isInitialized == false) // skip cell events if the board isn't initialised yet.
+                return;
+
             if (e.PropertyName == "Value")
             {
                 bool valid = CheckIsValid();
@@ -187,8 +190,8 @@ namespace SA_Week4_Sudoku.View
     public class Board : INotifyPropertyChanged
     {
         private SudokuWrapper gameData = new SudokuBasis.SudokuWrapper();
-       private int size;
-       ObservableCollection<ObservableCollection<InnerGrid>> Rows;
+        private int size;
+        ObservableCollection<ObservableCollection<InnerGrid>> Rows;
         public ObservableCollection<ObservableCollection<InnerGrid>> GridRows
         {
             get
@@ -196,9 +199,17 @@ namespace SA_Week4_Sudoku.View
                 return Rows;
             }
         }
+
+        private static Boolean initialized;
+        public static Boolean isInitialized
+        {
+            get { return initialized; }
+        }
+
         public Board(int totalsize)
         {
-            size = (int)Math.Sqrt(totalsize);  
+            initialized = false;
+            size = (int)Math.Sqrt(totalsize);
             Rows = new ObservableCollection<ObservableCollection<InnerGrid>>();
             for (int c = 0; c < size; c++)
             {
@@ -212,7 +223,7 @@ namespace SA_Week4_Sudoku.View
                     {
                         for (int x = 0; x < g.GridRows.Count; x++)
                         {
-                          g.GridRows[y][x].PropertyChanged += new PropertyChangedEventHandler(c_PropertyChanged);
+                            g.GridRows[y][x].PropertyChanged += new PropertyChangedEventHandler(c_PropertyChanged);
                         }
                     }
 
@@ -220,24 +231,16 @@ namespace SA_Week4_Sudoku.View
                 }
                 Rows.Add(Col);
             }
-        }
 
-        public void GenerateGame(int ammount)
-        {
-            int i = 0;
-            Loop:
-            if (i < ammount)
+            for (int row = 0; row < 9; row++)
             {
-                // FOR DEBUGGING
-                if (i == 41)
+                for (int col = 0; col < 9; col++)
                 {
-                    i = 41;
-                }
-                // # FOR DEBUGGING
+                    int value = gameData.get(col, row);
+                    if (value == 0) // skip empty fields
+                        continue;
 
-                    short col = -1, row = -1, value = -1;
-                    bool suc = gameData.getHint(ref col, ref row, ref value);
-                    InnerGrid innergrid = Rows[col/Rows.Count][row/Rows.Count];
+                    InnerGrid innergrid = Rows[col / Rows.Count][row / Rows.Count];
                     foreach (ObservableCollection<Cell> cells in innergrid.GridRows)
                     {
                         foreach (Cell c in cells)
@@ -246,26 +249,63 @@ namespace SA_Week4_Sudoku.View
                             {
                                 c.Value = value;
                                 c.ReadOnly = true;
-                                i++;
-                                System.Diagnostics.Debug.WriteLine("Cells set:" + i);
-
-                                goto Loop;
                             }
                         }
                     }
-                // FOR DEBUGGING
-                i++;
-                System.Diagnostics.Debug.WriteLine("Something failed");
-                goto Loop;
-                // # FOR DEBUGGING
+                }
+            }
+
+            initialized = true;
+        }
+
+        public void Solve()
+        {
+            int emptyFieldCount = 0;
+            for (int row = 0; row < 9; row++)
+            {
+                for (int col = 0; col < 9; col++)
+                {
+                    int value = gameData.get(col, row);
+                    if (value != 0) // skip non-empty fields
+                        continue;
+
+                    emptyFieldCount++;
+                }
+            }
+            
+            for(int numHints = 0; numHints < emptyFieldCount - 2; numHints++)
+            {
+                short col = 0, row = 0, value = 0;
+                if (gameData.getHint(ref col, ref row, ref value)) // hint
+                {
+                    InnerGrid innergrid = Rows[col / Rows.Count][row / Rows.Count];
+                    foreach (ObservableCollection<Cell> cells in innergrid.GridRows)
+                    {
+                        foreach (Cell c in cells)
+                        {
+                            if (c.getRow() == row && c.getCol() == col)
+                            {
+                                c.Value = value;
+                                c.ReadOnly = true;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    // Error
+                }
             }
         }
 
         void g_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (isInitialized == false) // Skip propertyChanged events if the board isn't initialised yet.
+                return;
+
             if (e.PropertyName == "IsValid")
             {
-                for(int a = 0; a < 3; a++)
+                for (int a = 0; a < 3; a++)
                 {
                     for (int b = 0; b < 3; b++)
                     {
@@ -327,20 +367,20 @@ namespace SA_Week4_Sudoku.View
         }
         private bool CheckRowIsValid(int row)
         {
-            int width = Rows.Count * Rows.Count;   
+            int width = Rows.Count * Rows.Count;
             bool[] used = new bool[width];
             for (int i = 0; i < width; i++)
             {
                 Cell c = this[row, i];
                 if (c.Value.HasValue)
                 {
-                    if (used[c.Value.Value-1])
+                    if (used[c.Value.Value - 1])
                     {
                         return false;
                     }
                     else
                     {
-                        used[c.Value.Value-1] = true; 
+                        used[c.Value.Value - 1] = true;
                     }
                 }
             }
@@ -355,13 +395,13 @@ namespace SA_Week4_Sudoku.View
                 Cell c = this[i, col];
                 if (c.Value.HasValue)
                 {
-                    if (used[c.Value.Value-1])
+                    if (used[c.Value.Value - 1])
                     {
                         return false;
                     }
                     else
                     {
-                        used[c.Value.Value-1] = true;
+                        used[c.Value.Value - 1] = true;
                     }
                 }
             }
@@ -378,10 +418,8 @@ namespace SA_Week4_Sudoku.View
                 int totalsize = Rows.Count * Rows.Count;
                 if (row < 0 || row >= totalsize) throw new ArgumentOutOfRangeException("row", row, "Invalid Row Index");
                 if (col < 0 || col >= totalsize) throw new ArgumentOutOfRangeException("col", col, "Invalid Column Index");
-                return Rows[row / Rows.Count][col / Rows.Count][row % Rows.Count,col % Rows.Count];
+                return Rows[row / Rows.Count][col / Rows.Count][row % Rows.Count, col % Rows.Count];
             }
         }
-
-
     }
 }
