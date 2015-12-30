@@ -25,3 +25,6 @@ If you do so, it's starting filling the squares but will fail on a bug on square
 
 # What have we tried:
 Over 4 programmers have been on this bug. We tried to get another DLL, debugged it step by step (put the line 232 in the method to debug faster). We're out that the dll is not the problem as we managed it to use it in other projects. It is our code. We tried to redevelop the methods (getHint()) but that didn't fix the solution.
+
+# What we know:
+The dll gives only 41 tiles back so it should be mirrored to get the result. How we could do this is the last question we have to answer.
