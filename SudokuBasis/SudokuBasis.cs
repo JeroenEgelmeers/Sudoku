@@ -17,7 +17,6 @@ namespace SudokuBasis
             int canWrite;
             sudoku.create();
             sudoku.write(out canWrite);
-
         }
 
         public bool set(int col, int row, int val)
@@ -80,6 +79,5 @@ namespace SudokuBasis
         {
             sudoku.isValid(out valid);
         }
-
     }
 }
