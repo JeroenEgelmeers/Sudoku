@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="SudokuBasis.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SudokuBoardUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Sudoku">

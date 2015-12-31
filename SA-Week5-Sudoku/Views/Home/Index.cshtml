@@ -1,11 +1,41 @@
 ﻿@{
     ViewBag.Title = "Sudoku ASP.NET";
 }
+@model SA_Week5_Sudoku.Models.ASPBoard
+
 <div class="page-header">
     <p><h1>@ViewBag.Title</h1></p>
 </div>
 <div class="row">
     <div class="col-md-12">
-        
+        <table>
+            @{
+                foreach (var item in Model.board.GridRows)
+                {
+                    foreach (var grid in item)
+                    {
+                        <table width="20%" border="1" style="border: 1px solid #000; float: left;">
+                            @foreach (var cell in grid.GridRows)
+                            {
+                                <tr>
+                                    @foreach (var info in cell)
+                                    {
+                                        <td style="height: 50px; width: 50px; text-align: center;">@if (info.Value != null)
+                                            {
+                                                @info.Value
+                                            }
+                                            else
+                                            {
+                                                <span>&nbsp;</span>
+                                            }</td>
+                                    }
+                                </tr>
+                            }
+                        </table>
+                    }
+                    <div class="clear"></div>
+                }
+            }
+        </table>
     </div>
 </div>

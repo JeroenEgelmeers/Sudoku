@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SA_Week4_Sudoku.View;
+using SA_Week5_Sudoku.Models;
 
 namespace SA_Week5_Sudoku.Controllers
 {
@@ -10,7 +12,10 @@ namespace SA_Week5_Sudoku.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            // Make the board and give it as model to the view
+            ASPBoard ASPBoard = new ASPBoard();
+
+            return View(ASPBoard);
         }
 
         public ActionResult About()
