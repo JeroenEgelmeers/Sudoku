@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -37,11 +39,19 @@ namespace SA_Week5_Sudoku.Controllers
 
         public void ChangeValue()
         {
-            int col = Int32.Parse(Request.QueryString["col"]);
-            int row = Int32.Parse(Request.QueryString["row"]);
+            int col     = Int32.Parse(Request.QueryString["col"]);
+            int row     = Int32.Parse(Request.QueryString["row"]);
+            int value   = Int32.Parse(Request.QueryString["val"]);
 
             // PUT HERE THE VALIDATION OF THE USERS INPUT.
-
+            foreach (var item in SessionContainer.Current.SES_ASPBoard.board.GridRows)
+            {
+                //
+                //if (item[row][col].IsValid())
+                //{
+                    
+                //}
+            }
             //System.Diagnostics.Debug.WriteLine("Col: " + col + " , Row: " + row);
 
             Index();
