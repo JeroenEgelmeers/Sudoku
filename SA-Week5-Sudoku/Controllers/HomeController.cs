@@ -18,7 +18,6 @@ namespace SA_Week5_Sudoku.Controllers
             {
                 SessionContainer.Current.SES_ASPBoard = new ASPBoard();
             }
-
             return View(SessionContainer.Current.SES_ASPBoard);
         }
 
@@ -36,6 +35,17 @@ namespace SA_Week5_Sudoku.Controllers
             return View();
         }
 
+        public void ChangeValue()
+        {
+            int col = Int32.Parse(Request.QueryString["col"]);
+            int row = Int32.Parse(Request.QueryString["row"]);
+
+            // PUT HERE THE VALIDATION OF THE USERS INPUT.
+
+            //System.Diagnostics.Debug.WriteLine("Col: " + col + " , Row: " + row);
+
+            Index();
+        }
 
         public void SolveGame()
         {

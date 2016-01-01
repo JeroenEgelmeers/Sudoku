@@ -10,7 +10,6 @@
 <div class="row">
     <div class="col-md-12">
         <div id="sudokuGameDiv">
-            <table>
                 @{
                     foreach (var item in SessionContainer.Current.SES_ASPBoard.board.GridRows)
                     {
@@ -24,14 +23,8 @@
                                         {
                                             string color = "";
                                             string inputColor = "";
-                                            if (info.ReadOnly)
-                                            {
-                                                color = "33C133";
-                                            }
-                                            if (info.IsValid == false)
-                                            {
-                                                inputColor = "f66161";
-                                            }
+                                            if (info.ReadOnly) { color = "33C133"; }
+                                            if (info.IsValid == false) { inputColor = "f66161"; }
                                             <td style="height: 50px; width: 50px; text-align: center; background:#@color;">
                                                 @if (info.Value != null)
                                                 {
@@ -39,7 +32,7 @@
                                                 }
                                                 else
                                                 {
-                                                    <input type="text" style="width: 100% !important; border: 0; text-align: center; height: 100% !important; margin: 0; padding: 0; background:#@inputColor;"/>
+                                                    <input type="number" onchange="ChangeValue(@info.getRow(), @info.getCol())" min="@info.PossibleValues.Min()" max="@info.PossibleValues.Max()" style="width: 100% !important; border: 0; text-align: center; height: 100% !important; margin: 0; padding: 0; background:#@inputColor;"/>
                                                 }
                                             </td>
                                         }
@@ -50,8 +43,6 @@
                         <div class="clear"></div>
                     }
                 }
-            </table>
-
         </div>
         </div>
 </div>
@@ -66,6 +57,12 @@
 </div>
 
 <script>
+    function ChangeValue(row, col) {
+        $.get("/Home/ChangeValue?row="+row+"&col="+col+"", function (data) {
+            $("#sudokuGameDiv").load(location.href + " #sudokuGameDiv");
+        });
+    }
+
     function SolveGame() {
         $.get("/Home/SolveGame", function (data) {
             $("#sudokuGameDiv").load(location.href + " #sudokuGameDiv");
