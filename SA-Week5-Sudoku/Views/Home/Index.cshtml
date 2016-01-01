@@ -10,39 +10,65 @@
 <div class="row">
     <div class="col-md-12">
         <div id="sudokuGameDiv">
-                @{
-                    foreach (var item in SessionContainer.Current.SES_ASPBoard.board.GridRows)
+            @{
+                // Need to to quick access where you are in iteration.
+                int tableRow = 0;
+                int tableIndex = 0;
+                int RowRow = 0;
+                int RowIndex = 0;
+                // # Need to to quick access where you are in iteration.
+
+                foreach (var item in SessionContainer.Current.SES_ASPBoard.board.GridRows)
+                {
+                    foreach (var grid in item)
                     {
-                        foreach (var grid in item)
-                        {
-                            <table width="20%" border="1" style="border: 1px solid #000; float: left;">
-                                @foreach (var cell in grid.GridRows)
-                                {
-                                    <tr>
-                                        @foreach (var info in cell)
-                                        {
-                                            string color = "";
-                                            string inputColor = "";
-                                            if (info.ReadOnly) { color = "33C133"; }
-                                            if (info.IsValid == false) { inputColor = "f66161"; }
-                                            <td style="height: 50px; width: 50px; text-align: center; background:#@color;">
-                                                @if (info.Value != null)
-                                                {
-                                                    @info.Value
-                                                }
-                                                else
-                                                {
-                                                    <input type="number" onchange="ChangeValue(@info.getRow(), @info.getCol(), this)" min="@info.PossibleValues.Min()" max="@info.PossibleValues.Max()" style="width: 100% !important; border: 0; text-align: center; height: 100% !important; margin: 0; padding: 0; background:#@inputColor;"/>
-                                                }
-                                            </td>
-                                        }
-                                    </tr>
-                                }
-                            </table>
-                        }
-                        <div class="clear"></div>
+                        <table width="20%" border="1" style="border: 1px solid #000; float: left;">
+                            @foreach (var cell in grid.GridRows)
+                            {
+                                <tr>
+                                    @foreach (var info in cell)
+                                    {
+                                        string color = "";
+                                        string inputColor = "";
+                                        if (info.ReadOnly) { color = "33C133"; /* Green */ }
+                                        if (info.IsValid == false) { inputColor = "f66161"; /* Red */ }
+
+                                        // Loop to horizontal to check if the same number exsists
+                                        //bool xPassed = true;
+                                        //foreach (var xPos in SessionContainer.Current.SES_ASPBoard.board.GridRows[tableRow])
+                                        //{
+                                        //    foreach (var xPosCell in xPos.GridRows[RowRow])
+                                        //    {
+                                        //        if (info.Value == xPosCell.Value)
+                                        //        {
+                                        //            xPassed = false;
+                                        //        }
+                                        //    }
+                                        //}
+                                        //if (!xPassed) { inputColor = "f66161"; /* Red */ }
+
+                                        // Loop through vertical to check if the same number exsists
+                                        // Loop through square to check if the same number exsists
+
+
+                                        <td style="height: 50px; width: 50px; text-align: center; background: #@color;">
+                                            @if (info.Value != null && info.IsValid) { @info.Value }
+                                            else {
+                                                <input type="number" onchange="ChangeValue(@tableRow, @tableIndex, @info.getRow(), @info.getCol(), this)" min="@info.PossibleValues.Min()" max="@info.PossibleValues.Max()" style="width: 100% !important; border: 0; text-align: center; height: 100% !important; margin: 0; padding: 0; background: #@inputColor;" value="@info.Value"/>
+                                            }
+                                        </td>
+                                        RowIndex++;
+                                    }
+                                </tr>
+                                RowRow++;
+                            }
+                        </table>
+                        tableIndex++;
                     }
+                    tableRow++;
+                    <div class="clear"></div>
                 }
+            }
         </div>
         </div>
 </div>
@@ -57,8 +83,8 @@
 </div>
 
 <script>
-    function ChangeValue(row, col, val) {
-        $.get("/Home/ChangeValue?row="+row+"&col="+col+"&val="+val.value+"", function (data) {
+    function ChangeValue(tableIndex, tableRow, row, col, val) {
+        $.get("/Home/ChangeValue?row="+row+"&col="+col+"&val="+val.value+"&tableI="+tableIndex+"&tableR="+tableRow, function (data) {
            $("#sudokuGameDiv").load(location.href + " #sudokuGameDiv");
         });
     }

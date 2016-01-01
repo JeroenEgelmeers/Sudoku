@@ -42,17 +42,11 @@ namespace SA_Week5_Sudoku.Controllers
             int col     = Int32.Parse(Request.QueryString["col"]);
             int row     = Int32.Parse(Request.QueryString["row"]);
             int value   = Int32.Parse(Request.QueryString["val"]);
+            int tableI = Int32.Parse(Request.QueryString["tableI"]);
+            int tableR = Int32.Parse(Request.QueryString["tableR"]);
 
-            // PUT HERE THE VALIDATION OF THE USERS INPUT.
-            foreach (var item in SessionContainer.Current.SES_ASPBoard.board.GridRows)
-            {
-                //
-                //if (item[row][col].IsValid())
-                //{
-                    
-                //}
-            }
-            //System.Diagnostics.Debug.WriteLine("Col: " + col + " , Row: " + row);
+            //SessionContainer.Current.SES_ASPBoard.board.gameData.set(col, row, value);
+            SessionContainer.Current.SES_ASPBoard.board.GridRows[tableR][tableI].GridRows[col][row].Value = value;
 
             Index();
         }

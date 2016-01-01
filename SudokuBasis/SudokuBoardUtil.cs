@@ -46,7 +46,7 @@ namespace SA_Week4_Sudoku.View
                 }
             }
         }
-        int? valueValue = null;
+        public int? valueValue = null;
         public int? Value
         {
             get
@@ -147,6 +147,7 @@ namespace SA_Week4_Sudoku.View
             {
                 return isValidValue; 
             }
+            set { isValidValue = value; }
         }
         private bool CheckIsValid()
         {
@@ -189,7 +190,7 @@ namespace SA_Week4_Sudoku.View
 
     public class Board : INotifyPropertyChanged
     {
-        private SudokuWrapper gameData = new SudokuBasis.SudokuWrapper();
+        public SudokuWrapper gameData = new SudokuBasis.SudokuWrapper();
         private int size;
         ObservableCollection<ObservableCollection<InnerGrid>> Rows;
         public ObservableCollection<ObservableCollection<InnerGrid>> GridRows
