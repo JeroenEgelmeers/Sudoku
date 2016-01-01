@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Sudoku ASP.NET";
 }
+@using SA_Week5_Sudoku.Models
 @model SA_Week5_Sudoku.Models.ASPBoard
 
 <div class="page-header">
@@ -8,34 +9,71 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <table>
-            @{
-                foreach (var item in Model.board.GridRows)
-                {
-                    foreach (var grid in item)
+        <div id="sudokuGameDiv">
+            <table>
+                @{
+                    foreach (var item in SessionContainer.Current.SES_ASPBoard.board.GridRows)
                     {
-                        <table width="20%" border="1" style="border: 1px solid #000; float: left;">
-                            @foreach (var cell in grid.GridRows)
-                            {
-                                <tr>
-                                    @foreach (var info in cell)
-                                    {
-                                        <td style="height: 50px; width: 50px; text-align: center;">@if (info.Value != null)
+                        foreach (var grid in item)
+                        {
+                            <table width="20%" border="1" style="border: 1px solid #000; float: left;">
+                                @foreach (var cell in grid.GridRows)
+                                {
+                                    <tr>
+                                        @foreach (var info in cell)
+                                        {
+                                            string color = "";
+                                            string inputColor = "";
+                                            if (info.ReadOnly)
                                             {
-                                                @info.Value
+                                                color = "33C133";
                                             }
-                                            else
+                                            if (info.IsValid == false)
                                             {
-                                                <span>&nbsp;</span>
-                                            }</td>
-                                    }
-                                </tr>
-                            }
-                        </table>
+                                                inputColor = "f66161";
+                                            }
+                                            <td style="height: 50px; width: 50px; text-align: center; background:#@color;">
+                                                @if (info.Value != null)
+                                                {
+                                                    @info.Value
+                                                }
+                                                else
+                                                {
+                                                    <input type="text" style="width: 100% !important; border: 0; text-align: center; height: 100% !important; margin: 0; padding: 0; background:#@inputColor;"/>
+                                                }
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            </table>
+                        }
+                        <div class="clear"></div>
                     }
-                    <div class="clear"></div>
                 }
-            }
-        </table>
-    </div>
+            </table>
+
+        </div>
+        </div>
 </div>
+<div class="row" style="margin-top: 10px;">
+    <div class="col-md-3">
+        <input type="button" onclick="SolveGame()" value="Cheat"/>
+        <input type="button" onclick="NewGame()" value="New Game" />
+    </div>
+    <div class="col-md-3"></div>
+    <div class="col-md-3"></div>
+    <div class="col-md-3"></div>
+</div>
+
+<script>
+    function SolveGame() {
+        $.get("/Home/SolveGame", function (data) {
+            $("#sudokuGameDiv").load(location.href + " #sudokuGameDiv");
+        });
+    }
+    function NewGame() {
+        $.get("/Home/NewGame", function (data) {
+            $("#sudokuGameDiv").load(location.href + " #sudokuGameDiv");
+        });
+    }
+</script>

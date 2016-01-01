@@ -10,12 +10,16 @@ namespace SA_Week5_Sudoku.Controllers
 {
     public class HomeController : Controller
     {
+
         public ActionResult Index()
         {
             // Make the board and give it as model to the view
-            ASPBoard ASPBoard = new ASPBoard();
+            if (SessionContainer.Current.SES_ASPBoard == null)
+            {
+                SessionContainer.Current.SES_ASPBoard = new ASPBoard();
+            }
 
-            return View(ASPBoard);
+            return View(SessionContainer.Current.SES_ASPBoard);
         }
 
         public ActionResult About()
@@ -30,6 +34,18 @@ namespace SA_Week5_Sudoku.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+
+        public void SolveGame()
+        {
+            SessionContainer.Current.SES_ASPBoard.board.Solve();
+            Index();
+        }
+        public void NewGame()
+        {
+            SessionContainer.Current.SES_ASPBoard = new ASPBoard();
+            Index();
         }
     }
 }
