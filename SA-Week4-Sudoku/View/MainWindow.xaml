@@ -19,6 +19,7 @@
             <Expander IsExpanded ="True" Header="Main Menu">
                 <Border Margin ="5" Padding ="10" Background ="#77FFFFFF" BorderBrush ="DimGray" BorderThickness ="1">
                     <StackPanel>
+                        <Button Click ="CheatClicked">Cheat</Button>
                         <Button Click ="NewGameClicked">New Game</Button>
                         <Button Click ="QuitClicked">Quit</Button>
                     </StackPanel>

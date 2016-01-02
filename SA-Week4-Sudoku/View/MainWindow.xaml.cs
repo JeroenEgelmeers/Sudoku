@@ -28,10 +28,13 @@ namespace SA_Week4_Sudoku.View
         void NewGameClicked(object sender, RoutedEventArgs e)
         {
             Board.GameBoard = new Board(9);
-            Board.GameBoard.Solve();
         }
 
-
+        void CheatClicked(object sender, RoutedEventArgs e)
+        {
+            Board.GameBoard = new Board(9);
+            Board.GameBoard.Solve();
+        }
 
         void QuitClicked(object sender, RoutedEventArgs e)
         {

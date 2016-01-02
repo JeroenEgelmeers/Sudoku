@@ -53,6 +53,7 @@ namespace SA_Week5_Sudoku.Controllers
 
         public void SolveGame()
         {
+            SessionContainer.Current.SES_ASPBoard = new ASPBoard();
             SessionContainer.Current.SES_ASPBoard.board.Solve();
             Index();
         }
