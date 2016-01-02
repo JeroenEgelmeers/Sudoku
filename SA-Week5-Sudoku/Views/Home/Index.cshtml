@@ -23,50 +23,45 @@
                     foreach (var grid in item)
                     {
                         <table width="20%" border="1" style="border: 1px solid #000; float: left;">
-                            @foreach (var cell in grid.GridRows)
+                            @foreach (var cellRow in grid.GridRows)
                             {
                                 <tr>
-                                    @foreach (var info in cell)
+                                    @foreach (var cell in cellRow)
                                     {
                                         string color = "";
                                         string inputColor = "";
-                                        if (info.ReadOnly) { color = "33C133"; /* Green */ }
-                                        if (info.IsValid == false) { inputColor = "f66161"; /* Red */ }
-
-                                        // Loop to horizontal to check if the same number exsists
-                                        //bool xPassed = true;
-                                        //foreach (var xPos in SessionContainer.Current.SES_ASPBoard.board.GridRows[tableRow])
-                                        //{
-                                        //    foreach (var xPosCell in xPos.GridRows[RowRow])
-                                        //    {
-                                        //        if (info.Value == xPosCell.Value)
-                                        //        {
-                                        //            xPassed = false;
-                                        //        }
-                                        //    }
-                                        //}
-                                        //if (!xPassed) { inputColor = "f66161"; /* Red */ }
-
-                                        // Loop through vertical to check if the same number exsists
-                                        // Loop through square to check if the same number exsists
-
+                                        if (cell.ReadOnly)
+                                        {
+                                            color = "33C133"; /* Green */
+                                        }
+                                        if (cell.IsValid == false)
+                                        {
+                                            inputColor = "f66161"; /* Red */
+                                        }
 
                                         <td style="height: 50px; width: 50px; text-align: center; background: #@color;">
-                                            @if (info.Value != null && info.IsValid) { @info.Value }
-                                            else {
-                                                <input type="number" onchange="ChangeValue(@tableRow, @tableIndex, @info.getRow(), @info.getCol(), this)" min="@info.PossibleValues.Min()" max="@info.PossibleValues.Max()" style="width: 100% !important; border: 0; text-align: center; height: 100% !important; margin: 0; padding: 0; background: #@inputColor;" value="@info.Value"/>
+                                            @if (cell.Value != null && cell.IsValid && cell.ReadOnly)
+                                            {
+                                                @cell.Value
+                                            }
+                                            else
+                                            {
+                                                <input type="number" onchange="ChangeValue(@tableRow, @tableIndex, @RowIndex, @RowRow, this)" min="@cell.PossibleValues.Min()" max="@cell.PossibleValues.Max()" style="width: 100% !important; border: 0; text-align: center; height: 100% !important; margin: 0; padding: 0; background: #@inputColor;" value="@cell.Value"/>
                                             }
                                         </td>
                                         RowIndex++;
                                     }
                                 </tr>
                                 RowRow++;
+                                RowIndex = 0;
                             }
                         </table>
                         tableIndex++;
+                        RowRow = 0;
                     }
-                    tableRow++;
                     <div class="clear"></div>
+                    tableRow++;
+                    tableIndex = 0;
                 }
             }
         </div>
@@ -83,7 +78,7 @@
 </div>
 
 <script>
-    function ChangeValue(tableIndex, tableRow, row, col, val) {
+    function ChangeValue(tableRow, tableIndex, row, col, val) {
         $.get("/Home/ChangeValue?row="+row+"&col="+col+"&val="+val.value+"&tableI="+tableIndex+"&tableR="+tableRow, function (data) {
            $("#sudokuGameDiv").load(location.href + " #sudokuGameDiv");
         });
