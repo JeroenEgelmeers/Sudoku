@@ -17,6 +17,3 @@ Then:
 - - Save.
 
 You're now ready to run the application.
-
-# TODO
-- Eis: Read & Write moet nog!
