@@ -1,4 +1,5 @@
 # Sudoku
+A game build for Avans Hogeschool (3th semester).
 
 # How to run
 First check if you've got the Sudoku.dll and Sudoku.tld in the folder: Sa-Week4-Sudoku. It should be there but could go wrong because of a early commit. If you do not have it in your folder:
