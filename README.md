@@ -18,3 +18,9 @@ Then:
 - - Save.
 
 You're now ready to run the application.
+
+# Project also contains
+"SA-Week3-NarrowCasting". This is just a small application writen by Bart Schut (https://github.com/Zarathes).
+My version of this project can be found here: https://github.com/JeroenEgelmeers/MOD4_opdrachten/tree/master/Modelleren%204/Observer
+
+This was a modelling assessment for Avans Hogeschool.
